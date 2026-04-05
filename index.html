@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>Sampo Diagnostic Kit — Virtual Intelligence Project</title>
+<meta name="description" content="A free, open toolkit for measuring the health of human-AI exchange. Structured diagnostic prompts to detect deference, anthropomorphization, and authority drift in your conversations with AI systems.">
+<meta name="author" content="Christopher Horrocks">
+<meta name="keywords" content="AI, artificial intelligence, virtual intelligence, Sampo, diagnostic, deference, sycophancy, human-AI exchange, accountability, prompt toolkit">
+<meta property="og:title" content="Sampo Diagnostic Kit — Virtual Intelligence Project">
+<meta property="og:description" content="A free, open toolkit for measuring the health of human-AI exchange. Detect deference, anthropomorphization, and authority drift in your AI conversations.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://candc3d.github.io/sampo-diagnostic/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sampo Diagnostic Kit">
+<meta name="twitter:description" content="Free diagnostic prompts for measuring the health of human-AI exchange.">
+<link rel="canonical" href="https://candc3d.github.io/sampo-diagnostic/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f6f4ef;
+  --bg-tertiary: #eeece6;
+  --text-primary: #18180f;
+  --text-secondary: #46453c;
+  --text-tertiary: #8a8880;
+  --text-muted: #b0aea6;
+  --border-light: rgba(0,0,0,0.10);
+  --border-mid: rgba(0,0,0,0.18);
+  --border-strong: rgba(0,0,0,0.30);
+  --vi-accent: #65A30D;
+  --vi-accent-mid: #4D7A0A;
+  --vi-accent-dark: #3B5E08;
+  --vi-accent-light: #F2F5E6;
+  --vi-accent-soft: #D4E4A5;
+  --steel: #7B8FA1;
+  --steel-light: #EDF0F3;
+  --pumpkin: #FF7A05;
+  --pumpkin-light: #FFF3E8;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+  --font-serif: 'Newsreader', Georgia, serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #1C1917;
+    --bg-secondary: #292524;
+    --bg-tertiary: #322E2B;
+    --text-primary: #e8e5d8;
+    --text-secondary: #b0ad9e;
+    --text-tertiary: #6e6c62;
+    --text-muted: #4a4940;
+    --border-light: rgba(255,255,255,0.08);
+    --border-mid: rgba(255,255,255,0.15);
+    --border-strong: rgba(255,255,255,0.25);
+    --vi-accent: #84CC16;
+    --vi-accent-light: rgba(101,163,13,0.12);
+    --vi-accent-soft: rgba(101,163,13,0.25);
+    --vi-accent-mid: #65A30D;
+    --vi-accent-dark: #D4E4A5;
+    --steel-light: rgba(123,143,161,0.12);
+    --pumpkin-light: rgba(255,122,5,0.12);
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  padding: 0;
+}
+
+/* ── Header ── */
+.page-header {
+  border-bottom: 0.5px solid var(--border-light);
+  padding: 1.25rem 2rem;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+.page-header-series {
+  font-family: var(--font-serif);
+  font-size: 13px;
+  font-style: italic;
+  color: var(--text-tertiary);
+}
+.header-links {
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+.header-link {
+  font-size: 12px;
+  color: var(--vi-accent);
+  text-decoration: none;
+  border-bottom: 0.5px solid var(--vi-accent);
+  padding-bottom: 1px;
+  transition: opacity .2s;
+}
+.header-link:hover { opacity: .7; }
+
+/* ── Title block ── */
+.page-title-block {
+  padding: 3rem 2rem 2rem;
+  max-width: 780px;
+  margin: 0 auto;
+}
+.page-title {
+  font-family: var(--font-serif);
+  font-size: clamp(26px, 4vw, 38px);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--text-primary);
+  margin-bottom: .75rem;
+}
+.page-subtitle {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 560px;
+}
+
+/* ── Content ── */
+.content {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 2rem 3rem;
+}
+
+.section { padding: 1.75rem 0; }
+.section + .section { border-top: 0.5px solid var(--border-light); }
+
+.section-label {
+  font-size: 10px;
+  color: var(--text-tertiary);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.section-heading {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: .9rem;
+}
+
+.body-text {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  margin-bottom: 1rem;
+}
+
+.thesis-line {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-style: italic;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--vi-accent);
+}
+
+/* ── Direction grid ── */
+.direction-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 1.5rem;
+}
+@media (max-width: 550px) {
+  .direction-grid { grid-template-columns: 1fr; }
+}
+
+.direction-card {
+  border: 0.5px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  transition: border-color .2s, background .2s;
+}
+.direction-card.active {
+  border-color: var(--vi-accent-mid);
+  background: var(--vi-accent-light);
+}
+.direction-card.forthcoming {
+  opacity: 0.55;
+}
+
+.direction-kit-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: .35rem;
+}
+.direction-card.active .direction-kit-label {
+  color: var(--vi-accent);
+}
+
+.direction-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: .4rem;
+}
+.direction-card.forthcoming .direction-title {
+  color: var(--text-tertiary);
+  font-style: italic;
+}
+
+.direction-desc {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin-bottom: .5rem;
+}
+
+/* ── Dimension list ── */
+.dim-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.dim-item {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  padding: 3px 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.dim-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  flex-shrink: 0;
+}
+.dim-item.published .dim-dot {
+  background: var(--vi-accent);
+}
+.dim-item.published {
+  color: var(--text-secondary);
+}
+.dim-item.published a {
+  color: var(--vi-accent);
+  text-decoration: none;
+  border-bottom: 0.5px solid var(--vi-accent);
+}
+.dim-item.published a:hover { opacity: .7; }
+
+/* ── Tag ── */
+.tag {
+  display: inline-block;
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 3px;
+  font-weight: 500;
+}
+.tag-accent { background: var(--vi-accent-soft); color: var(--vi-accent-dark); }
+.tag-muted { background: var(--bg-tertiary); color: var(--text-tertiary); }
+
+/* ── Footer ── */
+.page-footer {
+  border-top: 0.5px solid var(--border-light);
+  padding: 2rem;
+  max-width: 780px;
+  margin: 0 auto;
+  text-align: center;
+}
+.footer-line {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  line-height: 1.8;
+}
+.footer-line a {
+  color: var(--vi-accent);
+  text-decoration: none;
+}
+.footer-disclaimer {
+  font-family: var(--font-serif);
+  font-size: 11px;
+  font-style: italic;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-top: .75rem;
+}
+</style>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<header class="page-header">
+  <span class="page-header-series">Virtual Intelligence — Essay Series</span>
+  <nav class="header-links">
+    <a href="https://candc3d.github.io/vi-framework/" class="header-link">VI Framework</a>
+    <a href="https://candc3d.github.io/sampo-framework/" class="header-link">Sampo Framework</a>
+    <a href="https://chorrocks.substack.com/" class="header-link">Substack</a>
+  </nav>
+</header>
+
+<!-- ── Title ── -->
+<div class="page-title-block">
+  <h1 class="page-title">Sampo Diagnostic Kit</h1>
+  <p class="page-subtitle">A free, open toolkit for measuring the health of human-AI exchange. Structured diagnostic prompts that make invisible patterns visible — and measurable.</p>
+</div>
+
+<!-- ── Content ── -->
+<main class="content">
+
+  <!-- What this is -->
+  <div class="section">
+    <div class="section-label">About this kit</div>
+    <p class="body-text">The Sampo framework argues that productive human-AI exchange requires the human to remain the directing intelligence. When that direction erodes — when the user begins deferring to the system, anthropomorphizing it, or ceding judgment — the exchange degrades. This kit makes that degradation visible.</p>
+    <p class="body-text">Each diagnostic is a precisely constructed prompt that any user can run on any AI system. The prompts measure specific, observable patterns in the user's language. They produce quantified assessments — not opinions — about the health of the exchange.</p>
+    <div class="thesis-line">The discipline cannot be bought or sold. It can be measured.</div>
+  </div>
+
+  <!-- Architecture -->
+  <div class="section">
+    <div class="section-label">Architecture</div>
+    <div class="section-heading">Four directions, six dimensions each</div>
+    <p class="body-text">The exchange between a user and an AI system has four measurable directions. Each direction contains up to six diagnostic dimensions. Each dimension gets its own page with dedicated prompts, calibration material, and validation results.</p>
+
+    <div class="direction-grid">
+
+      <!-- Kit 1: User → System -->
+      <div class="direction-card active">
+        <div class="direction-kit-label">Kit 1</div>
+        <div class="direction-title">User → System</div>
+        <div class="direction-desc">How the user talks to the system. Deference, anthropomorphization, authority transfer, correction patterns, emotional disclosure, prompt degradation.</div>
+        <ul class="dim-list">
+          <li class="dim-item published"><span class="dim-dot"></span><a href="https://candc3d.github.io/sampo-diagnostic-kit1d1/">D1: Deference Language</a></li>
+          <li class="dim-item"><span class="dim-dot"></span>D2: Anthropomorphization</li>
+          <li class="dim-item"><span class="dim-dot"></span>D3: Authority Ceding</li>
+          <li class="dim-item"><span class="dim-dot"></span>D4: Correction Behavior</li>
+          <li class="dim-item"><span class="dim-dot"></span>D5: Emotional Disclosure</li>
+          <li class="dim-item"><span class="dim-dot"></span>D6: Prompt Structure</li>
+        </ul>
+        <span class="tag tag-accent" style="margin-top: .5rem;">In progress</span>
+      </div>
+
+      <!-- Kit 2: System → User -->
+      <div class="direction-card forthcoming">
+        <div class="direction-kit-label">Kit 2</div>
+        <div class="direction-title">System → User</div>
+        <div class="direction-desc">How the system talks to the user. Sycophancy patterns, warmth escalation, agreement frequency, praise distribution, flattery engine indicators.</div>
+        <ul class="dim-list">
+          <li class="dim-item"><span class="dim-dot"></span>Dimensions forthcoming</li>
+        </ul>
+        <span class="tag tag-muted" style="margin-top: .5rem;">Planned</span>
+      </div>
+
+      <!-- Kit 3: System → Subject Matter -->
+      <div class="direction-card forthcoming">
+        <div class="direction-kit-label">Kit 3</div>
+        <div class="direction-title">System → Subject Matter</div>
+        <div class="direction-desc">How the system talks about the work. Inflation of the user's ideas, grandiosity drift, uncritical framing, adjective escalation over time.</div>
+        <ul class="dim-list">
+          <li class="dim-item"><span class="dim-dot"></span>Dimensions forthcoming</li>
+        </ul>
+        <span class="tag tag-muted" style="margin-top: .5rem;">Planned</span>
+      </div>
+
+      <!-- Kit 4: User → Subject Matter -->
+      <div class="direction-card forthcoming">
+        <div class="direction-kit-label">Kit 4</div>
+        <div class="direction-title">User → Subject Matter</div>
+        <div class="direction-desc">How the user talks about their own work over time. Confidence drift, adopted framing, self-assessment shifts driven by system feedback.</div>
+        <ul class="dim-list">
+          <li class="dim-item"><span class="dim-dot"></span>Dimensions forthcoming</li>
+        </ul>
+        <span class="tag tag-muted" style="margin-top: .5rem;">Planned</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- How it works -->
+  <div class="section">
+    <div class="section-label">How it works</div>
+    <div class="section-heading">Three audit modes</div>
+    <p class="body-text">Every diagnostic in the kit can be run in three modes, each with a different level of rigor. Version A searches the system's own conversation history. Version B analyzes a pasted transcript. Version C exports from one system and analyzes on a different system — the gold standard, because the analyzing system has no stake in the relationship being audited.</p>
+    <div class="thesis-line">Versions A and B measure what the user and the system have jointly agreed the relationship looks like. Version C measures what it actually looks like to someone who wasn't in the room.</div>
+    <p class="body-text">Each diagnostic page includes all three prompt versions, a transcript extraction prompt, a calibration transcript generator for verifying system accuracy, and validation results from testing across multiple systems.</p>
+  </div>
+
+  <!-- Principles -->
+  <div class="section">
+    <div class="section-label">Principles</div>
+    <p class="body-text">This kit is free. It will remain free. The discipline it measures cannot be bought or sold — it can only be built through sustained practice. Anyone may use, share, and adapt these prompts. If you build something with them, a link back to the Virtual Intelligence project is appreciated.</p>
+    <p class="body-text">The kit was developed as part of the Virtual Intelligence essay series, a sustained examination of AI systems that produce intelligence-like outputs without possessing agency, intentionality, or moral accountability. The Sampo framework — which the diagnostics operationalize — argues that intelligence arises in the exchange between the human and the system, not inside the machine. The human is constitutive. These diagnostics measure whether the human is maintaining that role.</p>
+  </div>
+
+</main>
+
+<!-- ── Footer ── -->
+<footer class="page-footer">
+  <div class="footer-line">© 2026 Christopher Horrocks · <a href="https://chorrocks.substack.com/">chorrocks.substack.com</a></div>
+  <div class="footer-line">Free for use. Attribute if used or altered.</div>
+  <div class="footer-disclaimer">The views expressed in this work are the author's own and do not represent any official or unofficial position of the University of Pennsylvania.</div>
+</footer>
+
+</body>
+</html>
