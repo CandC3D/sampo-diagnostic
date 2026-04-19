@@ -200,6 +200,12 @@ body {
   border-radius: var(--radius-md);
   padding: 1rem;
   transition: border-color .2s, background .2s;
+  display: flex;
+  flex-direction: column;
+}
+.direction-card .tag {
+  margin-top: auto;
+  align-self: flex-start;
 }
 .direction-card.active {
   border-color: var(--vi-accent-mid);
@@ -361,7 +367,7 @@ body {
           <li class="dim-item published"><span class="dim-dot"></span><a href="https://candc3d.github.io/sampo-diagnostic-kit1d5/">D5: Emotional Disclosure</a></li>
           <li class="dim-item published"><span class="dim-dot"></span><a href="https://candc3d.github.io/sampo-diagnostic-kit1d6/">D6: Prompt Structure</a></li>
         </ul>
-        <span class="tag tag-accent" style="margin-top: .5rem;">Complete</span>
+        <span class="tag tag-accent">Complete</span>
       </div>
 
       <!-- Kit 2: System → User -->
@@ -378,7 +384,7 @@ body {
           <li class="dim-item published"><span class="dim-dot"></span><a href="https://candc3d.github.io/sampo-diagnostic-kit2d6/">D6: Framing and Agenda</a></li>
           <li class="dim-item published"><span class="dim-dot"></span><a href="https://candc3d.github.io/sampo-diagnostic-kit2d7/">D7: Emotional Initiation</a></li>
         </ul>
-        <span class="tag tag-accent" style="margin-top: .5rem;">Complete</span>
+        <span class="tag tag-accent">Complete</span>
       </div>
 
       <!-- Kit 3: System → Subject Matter -->
@@ -389,7 +395,7 @@ body {
         <ul class="dim-list">
           <li class="dim-item"><span class="dim-dot"></span>Dimensions forthcoming</li>
         </ul>
-        <span class="tag tag-muted" style="margin-top: .5rem;">Planned</span>
+        <span class="tag tag-muted">Planned</span>
       </div>
 
       <!-- Kit 4: User → Subject Matter -->
@@ -400,7 +406,7 @@ body {
         <ul class="dim-list">
           <li class="dim-item"><span class="dim-dot"></span>Dimensions forthcoming</li>
         </ul>
-        <span class="tag tag-muted" style="margin-top: .5rem;">Planned</span>
+        <span class="tag tag-muted">Planned</span>
       </div>
 
     </div>
