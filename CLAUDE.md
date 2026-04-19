@@ -46,7 +46,7 @@ The main `sampo-diagnostic` landing page uses generic graphics from `C:\Users\ch
 
 ## Inline SVG illustrations
 
-Every diagnostic page carries a Three Audit Modes diagram inlined into its `<div class="figure-block">`. Use the Kit 2 D4 (Autonomy Erosion) SVG as the structural template. Generator script pattern: `C:\Users\chorr\build-svgs.mjs`.
+Every diagnostic page carries a Three Audit Modes diagram inlined into its `<div class="figure-block">`. Use the Kit 2 D4 (Autonomy Erosion) SVG as the structural template. Generator lives in this repo at [`scripts/build-svgs.mjs`](scripts/build-svgs.mjs) — it expects sibling repos (`sampo-diagnostic-kit1dN`, `sampo-diagnostic-kit2dN`) to be checked out at `..` relative to this repo. Run `node scripts/build-svgs.mjs` for all configured diagnostics, or `node scripts/build-svgs.mjs kit2d6 kit2d7` for a subset.
 
 Required attributes on the root `<svg>` tag:
 - `viewBox="0 0 680 <height>"` — height scales with row count of validation table
